@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Madhuban Pure Veg – Udaipur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest: #1B3A2D;
+  --forest-deep: #0F2318;
+  --forest-mid: #2A5640;
+  --ivory: #FAF5E9;
+  --ivory-warm: #F2EAD3;
+  --marigold: #E8A020;
+  --marigold-light: #FDE68A;
+  --marigold-deep: #B87D16;
+  --terracotta: #C45E2A;
+  --cream: #FFFDF6;
+  --text-dark: #1A1208;
+  --text-mid: #4A3728;
+  --text-light: #8B7355;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ── HINDI MODE TYPOGRAPHY ──
+   Cormorant Garamond / DM Sans have no Devanagari glyphs, so when Hindi
+   is active we swap the body face to Noto Sans Devanagari and the
+   display/heading face to Noto Serif Devanagari. Wide letter-spacing and
+   uppercase transforms are also disabled, since they break Devanagari
+   conjuncts and don't have a real equivalent in the script. */
+body.lang-hi {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+}
+
+body.lang-hi .nav-logo,
+body.lang-hi .hero h1,
+body.lang-hi .hero-sub,
+body.lang-hi .section-title,
+body.lang-hi .pillar h3,
+body.lang-hi .dish-info h3,
+body.lang-hi .dish-price,
+body.lang-hi .review-text {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-style: normal;
+}
+
+body.lang-hi .nav-links a,
+body.lang-hi .hero-eyebrow,
+body.lang-hi .section-eyebrow,
+body.lang-hi .dish-tag,
+body.lang-hi .contact-item-text h4,
+body.lang-hi .gallery-label,
+body.lang-hi .btn-primary,
+body.lang-hi .btn-ghost,
+body.lang-hi .btn-map,
+body.lang-hi .logo-en {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 7%;
+  transition: all 0.4s ease;
+}
+
+nav.scrolled {
+  background: rgba(27, 58, 45, 0.97);
+  backdrop-filter: blur(12px);
+  padding: 14px 7%;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+}
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+}
+
+.nav-logo span { color: var(--marigold); }
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: rgba(255,255,255,0.85);
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.25s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 1.5px;
+  background: var(--marigold);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.nav-links a:hover { color: var(--marigold); }
+.nav-links a:hover::after { transform: scaleX(1); }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 110;
+}
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: white;
+  transition: all 0.25s ease;
+}
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: var(--forest-deep);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-leaf {
+  position: absolute;
+  width: 700px; height: 700px;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 160, 32, 0.12);
+  top: -200px; right: -200px;
+  pointer-events: none;
+}
+.hero-leaf:nth-child(2) {
+  width: 500px; height: 500px;
+  top: -100px; right: -100px;
+  border-color: rgba(232, 160, 32, 0.08);
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10% 7% 10% 10%;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--marigold);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1.5px;
+  background: var(--marigold);
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.0;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--marigold);
+}
+
+body.lang-hi .hero h1 em { font-style: normal; }
+
+.hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 36px;
+  line-height: 1.6;
+}
+
+.hero-tagline {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.8;
+  max-width: 360px;
+  margin-bottom: 48px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: var(--marigold);
+  color: var(--forest-deep);
+  padding: 15px 32px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all 0.25s;
+}
+
+.btn-primary:hover {
+  background: #f0aa2a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232,160,32,0.35);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: white;
+  padding: 14px 32px;
+  border-radius: 4px;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all 0.25s;
+}
+
+.btn-ghost:hover {
+  border-color: var(--marigold);
+  color: var(--marigold);
+}
+
+.hero-image-side {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2A5640 0%, #1B3A2D 50%, #0F2318 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.food-mosaic {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  width: 100%;
+  height: 100%;
+}
+
+.food-tile {
+  background: var(--forest-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.05em;
+  position: relative;
+  overflow: hidden;
+}
+
+body.lang-hi .food-tile {
+  font-family: 'Noto Serif Devanagari', serif;
+  letter-spacing: 0;
+}
+
+.food-tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(232,160,32,0.05);
+}
+
+.food-tile:first-child {
+  grid-column: span 2;
+  font-size: 1.2rem;
+}
+
+.tile-icon {
+  font-size: 3rem;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* ── SECTION BASE ── */
+.section {
+  padding: 100px 10%;
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--marigold-deep);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.section-eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--marigold-deep);
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--forest-deep);
+  margin-bottom: 20px;
+}
+
+/* ── DIVIDER ── */
+.petal-divider {
+  text-align: center;
+  padding: 12px 0;
+  color: var(--marigold);
+  font-size: 1.4rem;
+  letter-spacing: 10px;
+  opacity: 0.6;
+}
+
+/* ── ABOUT / PILLARS ── */
+.about {
+  background: var(--ivory);
+}
+
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-text p {
+  font-size: 1.05rem;
+  color: var(--text-mid);
+  line-height: 1.9;
+  margin-bottom: 20px;
+}
+
+.pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.pillar {
+  background: white;
+  border-radius: 6px;
+  padding: 28px 24px;
+  border: 1px solid var(--ivory-warm);
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+
+.pillar:hover {
+  box-shadow: 0 12px 40px rgba(27,58,45,0.1);
+  transform: translateY(-4px);
+}
+
+.pillar-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.pillar h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--forest);
+  margin-bottom: 6px;
+}
+
+.pillar p {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  line-height: 1.7;
+}
+
+/* ── MENU ── */
+.menu { background: var(--cream); }
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 56px;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.dish-card {
+  background: white;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--ivory-warm);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.dish-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(27,58,45,0.12);
+}
+
+.dish-img {
+  height: 220px;
+  background: var(--ivory);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.dish-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(27,58,45,0.08), transparent);
+}
+
+.dish-info {
+  padding: 20px 22px 24px;
+}
+
+.dish-tag {
+  display: inline-block;
+  background: var(--ivory-warm);
+  color: var(--marigold-deep);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+
+.dish-info h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--forest-deep);
+  margin-bottom: 6px;
+}
+
+.dish-info p {
+  font-size: 0.83rem;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.dish-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dish-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--forest);
+}
+
+.dish-price span {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-weight: 400;
+  margin-left: 2px;
+}
+
+body.lang-hi .dish-price span {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+}
+
+.veg-dot {
+  width: 20px; height: 20px;
+  border: 1.5px solid #2d7a2d;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.veg-dot::after {
+  content: '';
+  width: 10px; height: 10px;
+  background: #2d7a2d;
+  border-radius: 50%;
+}
+
+/* ── GALLERY ── */
+.gallery-section {
+  background: var(--forest-deep);
+  padding: 100px 0 0;
+}
+
+.gallery-header {
+  padding: 0 10%;
+  margin-bottom: 56px;
+}
+
+.gallery-header .section-eyebrow { color: var(--marigold); }
+.gallery-header .section-eyebrow::before { background: var(--marigold); }
+.gallery-header .section-title { color: white; }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 280px 280px;
+  gap: 4px;
+}
+
+.gallery-item {
+  background: var(--forest-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  overflow: hidden;
+  position: relative;
+  transition: filter 0.3s;
+}
+
+.gallery-item:hover { filter: brightness(1.15); }
+
+.gallery-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.15);
+}
+
+.gallery-item:first-child {
+  grid-row: span 2;
+  font-size: 4rem;
+}
+
+.gallery-label {
+  position: absolute;
+  bottom: 20px; left: 20px;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* ── REVIEWS ── */
+.reviews { background: var(--ivory); }
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 56px;
+}
+
+.review-card {
+  background: white;
+  border-radius: 6px;
+  padding: 32px 28px;
+  border: 1px solid var(--ivory-warm);
+  position: relative;
+}
+
+.review-card::before {
+  content: '"';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 5rem;
+  color: var(--marigold-light);
+  line-height: 1;
+  position: absolute;
+  top: 16px; left: 20px;
+}
+
+.review-stars {
+  color: var(--marigold);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  padding-top: 30px;
+}
+
+.review-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--text-dark);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.review-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--ivory-warm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--forest);
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.review-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--forest-deep);
+}
+.review-location {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+/* ── CONTACT ── */
+.contact {
+  background: var(--forest);
+  color: white;
+}
+
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.contact .section-eyebrow { color: var(--marigold); }
+.contact .section-eyebrow::before { background: var(--marigold); }
+.contact .section-title { color: white; }
+
+.contact-details { margin-top: 36px; }
+
+.contact-item {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 28px;
+  align-items: flex-start;
+}
+
+.contact-icon {
+  width: 44px; height: 44px;
+  background: rgba(232,160,32,0.15);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.contact-item-text h4 {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--marigold);
+  margin-bottom: 4px;
+}
+
+.contact-item-text p {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.6;
+}
+
+.map-placeholder {
+  background: rgba(255,255,255,0.05);
+  border-radius: 6px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  font-size: 3rem;
+}
+
+.map-placeholder p {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.06em;
+}
+
+body.lang-hi .map-placeholder p { letter-spacing: 0; }
+
+.btn-map {
+  margin-top: 32px;
+  display: inline-block;
+  background: var(--marigold);
+  color: var(--forest-deep);
+  padding: 15px 32px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all 0.25s;
+}
+
+.btn-map:hover {
+  background: #f0aa2a;
+  transform: translateY(-2px);
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--forest-deep);
+  color: rgba(255,255,255,0.5);
+  padding: 48px 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.footer-logo span { color: var(--marigold); }
+
+footer p { font-size: 0.83rem; }
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: rgba(255,255,255,0.45);
+  font-size: 0.83rem;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--marigold); }
+
+body.lang-hi .footer-links a { letter-spacing: 0; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-image-side { height: 320px; order: -1; }
+  .hero-text { padding: 64px 8% 56px; text-align: center; align-items: center; }
+  .hero-tagline { max-width: 100%; }
+  .hero-buttons { justify-content: center; width: 100%; }
+  .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+  .menu-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 200px 200px;
+  }
+  .gallery-item:first-child { grid-column: span 2; grid-row: span 1; }
+  footer { flex-direction: column; text-align: center; }
+  nav { padding: 16px 6%; }
+  .nav-links { gap: 20px; }
+}
+
+@media (max-width: 640px) {
+  .section { padding: 64px 6%; }
+  .pillars { grid-template-columns: 1fr; }
+  .nav-toggle { display: flex; }
+  .nav-links {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100vh;
+    width: 70%;
+    max-width: 280px;
+    background: var(--forest-deep);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    box-shadow: -8px 0 30px rgba(0,0,0,0.2);
+  }
+  .nav-links.open { transform: translateX(0); }
+  .nav-links a { font-size: 1rem; }
+  .lang-btn { padding: 8px 12px; font-size: 0.85rem; }
+  .logo-hi { font-size: 1.5rem; }
+  .logo-en { font-size: 0.6rem; letter-spacing: 2px; }
+  .hero { min-height: auto; }
+  .hero h1 { font-size: clamp(2.4rem, 11vw, 3.2rem); }
+  .hero-sub { font-size: 1.05rem; }
+  .hero-buttons { flex-direction: column; width: 100%; }
+  .hero-buttons a { text-align: center; width: 100%; }
+  .food-tile { font-size: 0.75rem; padding: 8px; }
+  .tile-icon { font-size: 2.2rem; }
+  .about-inner, .contact-inner { gap: 36px; }
+  .menu-grid { grid-template-columns: 1fr; }
+  .dish-img { height: 180px; font-size: 2.8rem; }
+  .gallery-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .gallery-item { height: 200px; }
+  .gallery-item:first-child { grid-column: span 1; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .map-placeholder { height: 220px; }
+  .btn-map { width: 100%; text-align: center; }
+  footer { padding: 40px 6%; }
+  .footer-links { gap: 16px; flex-wrap: wrap; justify-content: center; }
+}
+
+/* ── SCROLL ANIMATIONS ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.nav-brand{
+    display:flex;
+    flex-direction:column;
+    line-height:1;
+}
+
+.logo-hi{
+    font-family:'Noto Serif Devanagari', serif;
+    font-size:2rem;
+    color:#E8A020;
+    font-weight:700;
+}
+
+.logo-en{
+    font-size:.7rem;
+    letter-spacing:3px;
+    color:#fff;
+    font-weight:600;
+}
+
+.lang-btn{
+    background:#E8A020;
+    color:#111;
+    border:none;
+    padding:10px 16px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+    font-family:'Noto Serif Devanagari', 'DM Sans', sans-serif;
+}
+
+.lang-btn:hover{
+    transform:translateY(-2px);
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+<div class="nav-brand">
+    <div class="logo-hi">मधुबन</div>
+    <div class="logo-en" data-i18n="brand-sub">PURE VEG</div>
+</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" data-i18n="nav-about">About</a></li>
+    <li><a href="#menu" data-i18n="nav-menu">Menu</a></li>
+    <li><a href="#gallery" data-i18n="nav-gallery">Gallery</a></li>
+    <li><a href="#contact" data-i18n="nav-contact">Visit Us</a></li>
+  </ul>
+  <div style="display:flex; align-items:center; gap:10px;">
+    <button id="langBtn" class="lang-btn">हिन्दी</button>
+    <button id="navToggle" class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-leaf"></div>
+  <div class="hero-leaf"></div>
+  <div class="hero-text">
+<div class="hero-eyebrow" data-i18n="hero-eyebrow">
+    Family Garden Restaurant · Udaipur
+</div>
+<h1 data-i18n="hero-title">Pure Veg,<br><em>Pure Joy.</em></h1>
+<p class="hero-sub" data-i18n="hero-subtitle">
+A garden sanctuary for soulful vegetarian dining
+</p>
+    <p class="hero-tagline" data-i18n="hero-tagline">Nestled in the heart of Udaipur, Madhuban has been bringing families together over wholesome, authentic vegetarian cooking since day one.</p>
+    <div class="hero-buttons">
+      <a class="btn-primary" href="#menu" data-i18n="btn-explore">Explore Menu</a>
+      <a class="btn-ghost" href="#contact" data-i18n="btn-findus">Find Us</a>
+    </div>
+  </div>
+  <div class="hero-image-side">
+    <div class="food-mosaic">
+      <div class="food-tile">
+        <span class="tile-icon">🍽️</span>
+        <span data-i18n="tile-thali">Special Thali</span>
+      </div>
+      <div class="food-tile">
+        <span class="tile-icon">🥞</span>
+        <span data-i18n="tile-dosa">Masala Dosa</span>
+      </div>
+      <div class="food-tile">
+        <span class="tile-icon">🥘</span>
+        <span data-i18n="tile-paneer">Paneer Special</span>
+      </div>
+      <div class="food-tile">
+        <span class="tile-icon">🌿</span>
+        <span data-i18n="tile-fresh">Garden Fresh</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section about">
+  <div class="about-inner">
+    <div class="about-text fade-up">
+      <div class="section-eyebrow" data-i18n="about-eyebrow">Our Promise</div>
+      <h2 class="section-title" data-i18n="about-title">Where every<br>meal feels like<br>home.</h2>
+      <p data-i18n="about-p1">At Madhuban, we believe vegetarian food is never a compromise — it's a celebration. Every dish is crafted with seasonal produce, family recipes, and the kind of care that makes guests return week after week.</p>
+      <p data-i18n="about-p2">Our open garden seating is designed for long meals, slow conversations, and the sort of evenings Udaipur evenings were made for.</p>
+    </div>
+    <div class="pillars fade-up">
+      <div class="pillar">
+        <span class="pillar-icon">🌱</span>
+        <h3 data-i18n="pillar1-title">100% Pure Veg</h3>
+        <p data-i18n="pillar1-desc">No compromise, ever. Every ingredient on our menu is strictly vegetarian.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">🏡</span>
+        <h3 data-i18n="pillar2-title">Garden Seating</h3>
+        <p data-i18n="pillar2-desc">Dine under open skies in our peaceful family garden space.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">💛</span>
+        <h3 data-i18n="pillar3-title">Honest Prices</h3>
+        <p data-i18n="pillar3-desc">Great food shouldn't cost a fortune. Our pricing keeps families coming back.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">⚡</span>
+        <h3 data-i18n="pillar4-title">Swift Service</h3>
+        <p data-i18n="pillar4-desc">Your time matters. We serve fresh, fast, and without the wait.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="petal-divider">✦ ✦ ✦</div>
+
+<!-- MENU -->
+<section id="menu" class="section menu">
+  <div class="menu-header fade-up">
+    <div>
+      <div class="section-eyebrow" data-i18n="menu-eyebrow">Signature Dishes</div>
+      <h2 class="section-title" data-i18n="menu-title">What we're<br>known for.</h2>
+    </div>
+    <p style="max-width:280px; color:var(--text-light); font-size:0.9rem; line-height:1.7;" data-i18n="menu-subtitle">Ask your server about seasonal specials and regional Rajasthani preparations.</p>
+  </div>
+  <div class="menu-grid">
+    <div class="dish-card fade-up">
+      <div class="dish-img">🍱</div>
+      <div class="dish-info">
+        <span class="dish-tag" data-i18n="dish1-tag">Most Loved</span>
+        <h3 data-i18n="dish1-name">Special Thali</h3>
+        <p data-i18n="dish1-desc">A complete Rajasthani spread — dal, sabji, roti, rice, pickle, and dessert.</p>
+        <div class="dish-footer">
+          <div class="dish-price">₹180 <span data-i18n="price-onwards">onwards</span></div>
+          <div class="veg-dot"></div>
+        </div>
+      </div>
+    </div>
+    <div class="dish-card fade-up">
+      <div class="dish-img">🥞</div>
+      <div class="dish-info">
+        <span class="dish-tag" data-i18n="dish2-tag">South Indian</span>
+        <h3 data-i18n="dish2-name">Masala Dosa</h3>
+        <p data-i18n="dish2-desc">Crispy fermented crepe with spiced potato filling, served with chutneys and sambhar.</p>
+        <div class="dish-footer">
+          <div class="dish-price">₹90 <span data-i18n="price-onwards">onwards</span></div>
+          <div class="veg-dot"></div>
+        </div>
+      </div>
+    </div>
+    <div class="dish-card fade-up">
+      <div class="dish-img">🥘</div>
+      <div class="dish-info">
+        <span class="dish-tag" data-i18n="dish3-tag">Chef's Pick</span>
+        <h3 data-i18n="dish3-name">Paneer Special</h3>
+        <p data-i18n="dish3-desc">Fresh cottage cheese in a rich, aromatic gravy — pairs perfectly with butter naan.</p>
+        <div class="dish-footer">
+          <div class="dish-price">₹150 <span data-i18n="price-onwards">onwards</span></div>
+          <div class="veg-dot"></div>
+        </div>
+      </div>
+    </div>
+    <div class="dish-card fade-up">
+      <div class="dish-img">🍜</div>
+      <div class="dish-info">
+        <span class="dish-tag" data-i18n="dish4-tag">Fusion</span>
+        <h3 data-i18n="dish4-name">Chinese Platter</h3>
+        <p data-i18n="dish4-desc">Crispy veg noodles, manchurian, fried rice — the Indo-Chinese classics done right.</p>
+        <div class="dish-footer">
+          <div class="dish-price">₹130 <span data-i18n="price-onwards">onwards</span></div>
+          <div class="veg-dot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="gallery-section">
+  <div class="gallery-header fade-up">
+    <div class="section-eyebrow" data-i18n="gallery-eyebrow">Gallery</div>
+    <h2 class="section-title" data-i18n="gallery-title">A glimpse<br>of Madhuban.</h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      🌿
+      <span class="gallery-label" data-i18n="gallery-label1">Garden Seating</span>
+    </div>
+    <div class="gallery-item">
+      🍱
+      <span class="gallery-label" data-i18n="gallery-label2">Thali</span>
+    </div>
+    <div class="gallery-item">
+      🥞
+      <span class="gallery-label" data-i18n="gallery-label3">Dosa</span>
+    </div>
+    <div class="gallery-item">
+      🥘
+      <span class="gallery-label" data-i18n="gallery-label4">Paneer</span>
+    </div>
+    <div class="gallery-item">
+      ✨
+      <span class="gallery-label" data-i18n="gallery-label5">Evening Ambience</span>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section reviews">
+  <div style="text-align:center; margin-bottom:0;" class="fade-up">
+    <div class="section-eyebrow" style="justify-content:center" data-i18n="reviews-eyebrow">What Guests Say</div>
+    <h2 class="section-title" data-i18n="reviews-title">Loved by families<br>across Udaipur.</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card fade-up">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text" data-i18n="review1-text">The garden atmosphere is unlike anything in Udaipur. We came for lunch and stayed for three hours. That says it all.</p>
+      <div class="review-author">
+        <div class="review-avatar">RV</div>
+        <div>
+          <div class="review-name" data-i18n="review1-name">Ravi Verma</div>
+          <div class="review-location" data-i18n="review1-loc">Udaipur, Rajasthan</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card fade-up">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text" data-i18n="review2-text">Best masala dosa I have had outside of Bangalore. The chutney combination is just perfect. Will come again tomorrow.</p>
+      <div class="review-author">
+        <div class="review-avatar">PS</div>
+        <div>
+          <div class="review-name" data-i18n="review2-name">Priya Sharma</div>
+          <div class="review-location" data-i18n="review2-loc">Jaipur, Rajasthan</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card fade-up">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text" data-i18n="review3-text">Brought my family for my mother's birthday. The special thali was generous, fresh, and absolutely delicious. Highly recommend!</p>
+      <div class="review-author">
+        <div class="review-avatar">AM</div>
+        <div>
+          <div class="review-name" data-i18n="review3-name">Ankit Mehta</div>
+          <div class="review-location" data-i18n="review3-loc">Mumbai, Maharashtra</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section contact">
+  <div class="contact-inner">
+    <div class="fade-up">
+      <div class="section-eyebrow" data-i18n="contact-eyebrow">Visit Us</div>
+      <h2 class="section-title" data-i18n="contact-title">Come dine<br>with us.</h2>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-item-text">
+            <h4 data-i18n="address-h">Address</h4>
+            <p data-i18n="address-p">Opp. Samta Vihar, Amba Mata Ghati,<br>Titrdi Colony, Udaipur, Rajasthan</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div class="contact-item-text">
+            <h4 data-i18n="hours-h">Hours</h4>
+            <p data-i18n="hours-p">Daily: 8:00 AM – 10:30 PM<br>Open all days including holidays</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-item-text">
+            <h4 data-i18n="reservations-h">Reservations</h4>
+            <p data-i18n="reservations-p">Walk-ins welcome · Call ahead for large groups</p>
+          </div>
+        </div>
+      </div>
+      <a class="btn-map" href="https://maps.google.com" target="_blank" data-i18n="btn-directions">Get Directions →</a>
+    </div>
+    <div class="map-placeholder fade-up">
+      🗺️
+      <p data-i18n="map-placeholder">MAP PLACEHOLDER</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">MADHUB<span>AN</span></div>
+  <p data-i18n="footer-copyright">© 2026 Madhuban Pure Veg · All Rights Reserved</p>
+  <ul class="footer-links">
+    <li><a href="#about" data-i18n="footer-about">About</a></li>
+    <li><a href="#menu" data-i18n="footer-menu">Menu</a></li>
+    <li><a href="#contact" data-i18n="footer-contact">Contact</a></li>
+  </ul>
+</footer>
+
+<script>
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('open');
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navToggle.classList.remove('open');
+  navLinks.classList.remove('open');
+}));
+
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+/* ── TRANSLATIONS ──
+   Every translatable string lives here, keyed by the data-i18n value on
+   its element. Add a new section by adding a data-i18n attribute in the
+   HTML and a matching key/value pair in both the en and hi blocks below. */
+const translations = {
+  en: {
+    "brand-sub": "PURE VEG",
+    "nav-about": "About",
+    "nav-menu": "Menu",
+    "nav-gallery": "Gallery",
+    "nav-contact": "Visit Us",
+
+    "hero-eyebrow": "Family Garden Restaurant · Udaipur",
+    "hero-title": "Pure Veg,<br><em>Pure Joy.</em>",
+    "hero-subtitle": "A garden sanctuary for soulful vegetarian dining",
+    "hero-tagline": "Nestled in the heart of Udaipur, Madhuban has been bringing families together over wholesome, authentic vegetarian cooking since day one.",
+    "btn-explore": "Explore Menu",
+    "btn-findus": "Find Us",
+
+    "tile-thali": "Special Thali",
+    "tile-dosa": "Masala Dosa",
+    "tile-paneer": "Paneer Special",
+    "tile-fresh": "Garden Fresh",
+
+    "about-eyebrow": "Our Promise",
+    "about-title": "Where every<br>meal feels like<br>home.",
+    "about-p1": "At Madhuban, we believe vegetarian food is never a compromise — it's a celebration. Every dish is crafted with seasonal produce, family recipes, and the kind of care that makes guests return week after week.",
+    "about-p2": "Our open garden seating is designed for long meals, slow conversations, and the sort of evenings Udaipur evenings were made for.",
+
+    "pillar1-title": "100% Pure Veg",
+    "pillar1-desc": "No compromise, ever. Every ingredient on our menu is strictly vegetarian.",
+    "pillar2-title": "Garden Seating",
+    "pillar2-desc": "Dine under open skies in our peaceful family garden space.",
+    "pillar3-title": "Honest Prices",
+    "pillar3-desc": "Great food shouldn't cost a fortune. Our pricing keeps families coming back.",
+    "pillar4-title": "Swift Service",
+    "pillar4-desc": "Your time matters. We serve fresh, fast, and without the wait.",
+
+    "menu-eyebrow": "Signature Dishes",
+    "menu-title": "What we're<br>known for.",
+    "menu-subtitle": "Ask your server about seasonal specials and regional Rajasthani preparations.",
+
+    "dish1-tag": "Most Loved",
+    "dish1-name": "Special Thali",
+    "dish1-desc": "A complete Rajasthani spread — dal, sabji, roti, rice, pickle, and dessert.",
+    "dish2-tag": "South Indian",
+    "dish2-name": "Masala Dosa",
+    "dish2-desc": "Crispy fermented crepe with spiced potato filling, served with chutneys and sambhar.",
+    "dish3-tag": "Chef's Pick",
+    "dish3-name": "Paneer Special",
+    "dish3-desc": "Fresh cottage cheese in a rich, aromatic gravy — pairs perfectly with butter naan.",
+    "dish4-tag": "Fusion",
+    "dish4-name": "Chinese Platter",
+    "dish4-desc": "Crispy veg noodles, manchurian, fried rice — the Indo-Chinese classics done right.",
+    "price-onwards": "onwards",
+
+    "gallery-eyebrow": "Gallery",
+    "gallery-title": "A glimpse<br>of Madhuban.",
+    "gallery-label1": "Garden Seating",
+    "gallery-label2": "Thali",
+    "gallery-label3": "Dosa",
+    "gallery-label4": "Paneer",
+    "gallery-label5": "Evening Ambience",
+
+    "reviews-eyebrow": "What Guests Say",
+    "reviews-title": "Loved by families<br>across Udaipur.",
+    "review1-text": "The garden atmosphere is unlike anything in Udaipur. We came for lunch and stayed for three hours. That says it all.",
+    "review1-name": "Ravi Verma",
+    "review1-loc": "Udaipur, Rajasthan",
+    "review2-text": "Best masala dosa I have had outside of Bangalore. The chutney combination is just perfect. Will come again tomorrow.",
+    "review2-name": "Priya Sharma",
+    "review2-loc": "Jaipur, Rajasthan",
+    "review3-text": "Brought my family for my mother's birthday. The special thali was generous, fresh, and absolutely delicious. Highly recommend!",
+    "review3-name": "Ankit Mehta",
+    "review3-loc": "Mumbai, Maharashtra",
+
+    "contact-eyebrow": "Visit Us",
+    "contact-title": "Come dine<br>with us.",
+    "address-h": "Address",
+    "address-p": "Opp. Samta Vihar, Amba Mata Ghati,<br>Titrdi Colony, Udaipur, Rajasthan",
+    "hours-h": "Hours",
+    "hours-p": "Daily: 8:00 AM – 10:30 PM<br>Open all days including holidays",
+    "reservations-h": "Reservations",
+    "reservations-p": "Walk-ins welcome · Call ahead for large groups",
+    "btn-directions": "Get Directions →",
+    "map-placeholder": "MAP PLACEHOLDER",
+
+    "footer-copyright": "© 2026 Madhuban Pure Veg · All Rights Reserved",
+    "footer-about": "About",
+    "footer-menu": "Menu",
+    "footer-contact": "Contact"
+  },
+  hi: {
+    "brand-sub": "शुद्ध शाकाहारी",
+    "nav-about": "हमारे बारे में",
+    "nav-menu": "मेनू",
+    "nav-gallery": "गैलरी",
+    "nav-contact": "हमसे मिलें",
+
+    "hero-eyebrow": "पारिवारिक गार्डन रेस्टोरेंट · उदयपुर",
+    "hero-title": "शुद्ध शाकाहारी,<br><em>शुद्ध आनंद।</em>",
+    "hero-subtitle": "उदयपुर का प्रसिद्ध पारिवारिक गार्डन रेस्टोरेंट",
+    "hero-tagline": "उदयपुर के हृदय में स्थित मधुबन, पहले दिन से ही पौष्टिक और प्रामाणिक शाकाहारी भोजन के ज़रिए परिवारों को एक साथ लाता आ रहा है।",
+    "btn-explore": "मेनू देखें",
+    "btn-findus": "हमें खोजें",
+
+    "tile-thali": "स्पेशल थाली",
+    "tile-dosa": "मसाला डोसा",
+    "tile-paneer": "पनीर स्पेशल",
+    "tile-fresh": "गार्डन फ्रेश",
+
+    "about-eyebrow": "हमारा वादा",
+    "about-title": "जहाँ हर<br>भोजन घर जैसा<br>लगता है।",
+    "about-p1": "मधुबन में, हम मानते हैं कि शाकाहारी भोजन कभी समझौता नहीं है — यह एक उत्सव है। हर व्यंजन मौसमी सामग्री, पारिवारिक नुस्खों और उस देखभाल के साथ बनाया जाता है, जो मेहमानों को हफ्ते-दर-हफ्ते वापस लाती है।",
+    "about-p2": "हमारी खुली गार्डन सीटिंग लंबे भोजन, धीमी बातचीत और उन शामों के लिए बनाई गई है, जिनके लिए उदयपुर की शामें मशहूर हैं।",
+
+    "pillar1-title": "100% शुद्ध शाकाहारी",
+    "pillar1-desc": "कभी कोई समझौता नहीं। हमारे मेनू की हर सामग्री पूरी तरह शाकाहारी है।",
+    "pillar2-title": "गार्डन सीटिंग",
+    "pillar2-desc": "हमारे शांत पारिवारिक गार्डन में खुले आसमान के नीचे भोजन का आनंद लें।",
+    "pillar3-title": "ईमानदार दाम",
+    "pillar3-desc": "बेहतरीन खाना महंगा नहीं होना चाहिए। हमारे दाम परिवारों को बार-बार वापस लाते हैं।",
+    "pillar4-title": "तेज़ सेवा",
+    "pillar4-desc": "आपका समय कीमती है। हम ताज़ा भोजन तेज़ी से और बिना इंतज़ार के परोसते हैं।",
+
+    "menu-eyebrow": "खास व्यंजन",
+    "menu-title": "जिनके लिए हम<br>जाने जाते हैं।",
+    "menu-subtitle": "मौसमी विशेष और क्षेत्रीय राजस्थानी व्यंजनों के बारे में अपने सर्वर से पूछें।",
+
+    "dish1-tag": "सबसे पसंदीदा",
+    "dish1-name": "स्पेशल थाली",
+    "dish1-desc": "एक संपूर्ण राजस्थानी थाली — दाल, सब्ज़ी, रोटी, चावल, अचार और मिठाई।",
+    "dish2-tag": "दक्षिण भारतीय",
+    "dish2-name": "मसाला डोसा",
+    "dish2-desc": "मसालेदार आलू भरावन के साथ कुरकुरा डोसा, चटनी और सांभर के साथ परोसा जाता है।",
+    "dish3-tag": "शेफ की पसंद",
+    "dish3-name": "पनीर स्पेशल",
+    "dish3-desc": "ताज़े पनीर को एक गाढ़ी, खुशबूदार ग्रेवी में — बटर नान के साथ बेहतरीन जोड़ी।",
+    "dish4-tag": "फ्यूज़न",
+    "dish4-name": "चाइनीज़ प्लैटर",
+    "dish4-desc": "कुरकुरे वेज नूडल्स, मंचूरियन, फ्राइड राइस — भारतीय-चाइनीज़ क्लासिक्स का सही स्वाद।",
+    "price-onwards": "से शुरू",
+
+    "gallery-eyebrow": "गैलरी",
+    "gallery-title": "मधुबन की<br>एक झलक।",
+    "gallery-label1": "गार्डन सीटिंग",
+    "gallery-label2": "थाली",
+    "gallery-label3": "डोसा",
+    "gallery-label4": "पनीर",
+    "gallery-label5": "शाम का माहौल",
+
+    "reviews-eyebrow": "मेहमानों की राय",
+    "reviews-title": "उदयपुर भर के परिवारों<br>द्वारा पसंद किया गया।",
+    "review1-text": "गार्डन का माहौल उदयपुर में किसी और जगह जैसा नहीं है। हम लंच के लिए आए और तीन घंटे रुक गए। इससे ज़्यादा क्या कहें।",
+    "review1-name": "रवि वर्मा",
+    "review1-loc": "उदयपुर, राजस्थान",
+    "review2-text": "बेंगलुरु के बाहर मिला सबसे बेहतरीन मसाला डोसा। चटनी का स्वाद एकदम परफेक्ट है। कल फिर आऊँगी।",
+    "review2-name": "प्रिया शर्मा",
+    "review2-loc": "जयपुर, राजस्थान",
+    "review3-text": "अपनी माँ के जन्मदिन पर परिवार के साथ आया था। स्पेशल थाली भरपूर, ताज़ी और बेहद स्वादिष्ट थी। ज़रूर जाएं!",
+    "review3-name": "अंकित मेहता",
+    "review3-loc": "मुंबई, महाराष्ट्र",
+
+    "contact-eyebrow": "हमसे मिलें",
+    "contact-title": "हमारे साथ<br>भोजन करें।",
+    "address-h": "पता",
+    "address-p": "समता विहार के सामने, अंबा माता घाटी,<br>तितरडी कॉलोनी, उदयपुर, राजस्थान",
+    "hours-h": "समय",
+    "hours-p": "रोज़ाना: सुबह 8:00 – रात 10:30<br>छुट्टियों सहित सभी दिन खुला",
+    "reservations-h": "आरक्षण",
+    "reservations-p": "बिना बुकिंग के भी आ सकते हैं · बड़े समूहों के लिए पहले कॉल करें",
+    "btn-directions": "दिशा-निर्देश पाएं →",
+    "map-placeholder": "मानचित्र यहाँ दिखेगा",
+
+    "footer-copyright": "© 2026 मधुबन शुद्ध शाकाहारी · सर्वाधिकार सुरक्षित",
+    "footer-about": "हमारे बारे में",
+    "footer-menu": "मेनू",
+    "footer-contact": "संपर्क करें"
+  }
+};
+
+const langBtn = document.getElementById("langBtn");
+let currentLang = "en";
+
+function setLanguage(lang) {
+  const dict = translations[lang];
+  if (!dict) return;
+
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    if (dict[key] !== undefined) {
+      el.innerHTML = dict[key];
+    }
+  });
+
+  document.documentElement.setAttribute("lang", lang);
+  document.body.classList.toggle("lang-hi", lang === "hi");
+  langBtn.textContent = lang === "hi" ? "English" : "हिन्दी";
+  currentLang = lang;
+}
+
+langBtn.addEventListener("click", () => {
+  setLanguage(currentLang === "en" ? "hi" : "en");
+});
+</script>
+</body>
+</html>
