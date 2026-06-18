@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu – Madhuban Pure Veg</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@600;700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest: #1B3A2D;
+  --forest-deep: #0F2318;
+  --forest-mid: #2A5640;
+  --ivory: #FAF5E9;
+  --ivory-warm: #F2EAD3;
+  --marigold: #E8A020;
+  --marigold-deep: #B87D16;
+  --cream: #FFFDF6;
+  --text-dark: #1A1208;
+  --text-mid: #4A3728;
+  --text-light: #8B7355;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.menu-header {
+  background: var(--forest-deep);
+  padding: 20px 16px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brand-hi {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  color: var(--marigold);
+  font-weight: 700;
+}
+
+.brand-en {
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.55);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.table-badge {
+  background: var(--marigold);
+  color: var(--forest-deep);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+  display: none; /* shown only when ?table=N is in URL */
+}
+
+.table-badge.visible { display: block; }
+
+/* ── CATEGORY TABS ── */
+.category-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px;
+}
+
+.category-tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  flex-shrink: 0;
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.65);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.tab.active {
+  background: var(--marigold);
+  border-color: var(--marigold);
+  color: var(--forest-deep);
+}
+
+/* ── CONTENT ── */
+.content {
+  padding: 20px 14px 80px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.category-section {
+  margin-bottom: 36px;
+}
+
+.cat-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--forest-deep);
+  margin-bottom: 4px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--ivory-warm);
+}
+
+.cat-subtitle {
+  font-size: 0.76rem;
+  color: var(--text-light);
+  margin-bottom: 14px;
+  letter-spacing: 0.04em;
+}
+
+/* ── DISH ITEM ── */
+.dish {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--ivory-warm);
+}
+
+.dish:last-child { border-bottom: none; }
+
+.dish-left { flex: 1; }
+
+.dish-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.dish-name {
+  font-size: 0.97rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.veg-dot {
+  width: 16px; height: 16px;
+  border: 1.5px solid #2d7a2d;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.veg-dot::after {
+  content: '';
+  width: 8px; height: 8px;
+  background: #2d7a2d;
+  border-radius: 50%;
+}
+
+.dish-desc {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+.dish-tag-pill {
+  display: inline-block;
+  background: #FDE68A;
+  color: var(--marigold-deep);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-bottom: 4px;
+}
+
+.dish-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--forest);
+  white-space: nowrap;
+  padding-top: 2px;
+}
+
+/* ── FOOTER NOTE ── */
+.footer-note {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--forest);
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  padding: 12px 16px;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  z-index: 40;
+}
+
+.footer-note strong { color: var(--marigold); }
+
+/* ── BACK LINK ── */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.76rem;
+  text-decoration: none;
+  margin-bottom: 14px;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--marigold); }
+</style>
+</head>
+<body>
+
+<header class="menu-header">
+  <a class="back-link" href="index.html">← Back to website</a>
+  <div class="header-top">
+    <div class="brand">
+      <div class="brand-hi">मधुबन</div>
+      <div class="brand-en">Pure Veg · Udaipur</div>
+    </div>
+    <div class="table-badge" id="tableBadge">Table —</div>
+  </div>
+  <div class="category-tabs" id="tabs"></div>
+</header>
+
+<main class="content" id="menuContent"></main>
+
+<div class="footer-note">
+  📋 Show this screen to your <strong>waiter</strong> to place your order.
+</div>
+
+<script>
+// ── TABLE DETECTION ──
+const params = new URLSearchParams(window.location.search);
+const tableNum = params.get('table');
+const badge = document.getElementById('tableBadge');
+if (tableNum) {
+  badge.textContent = `Table ${tableNum}`;
+  badge.classList.add('visible');
+}
+
+// ── MENU DATA ──
+const menu = [
+  {
+    id: 'starters',
+    name: 'Starters',
+    subtitle: 'Light bites to begin',
+    items: [
+      { name: 'Veg Cutlet', price: '₹60', desc: 'Crispy mixed-veg patties, served with mint chutney', tag: null },
+      { name: 'Paneer Tikka', price: '₹130', desc: 'Marinated cottage cheese grilled in tandoor, with onion salad', tag: 'Popular' },
+      { name: 'Aloo Chaat', price: '₹70', desc: 'Spiced potato with tamarind, yogurt & sev', tag: null },
+      { name: 'Corn Bhel', price: '₹65', desc: 'Sweet corn tossed with puffed rice, onion & chutneys', tag: null },
+      { name: 'Dahi Puri', price: '₹75', desc: 'Crispy puris filled with yogurt, potato & tamarind', tag: null },
+    ]
+  },
+  {
+    id: 'thali',
+    name: 'Thali',
+    subtitle: 'Complete meals · All inclusive',
+    items: [
+      { name: 'Regular Thali', price: '₹150', desc: 'Dal, 2 sabji, roti, rice, papad & pickle', tag: null },
+      { name: 'Special Thali', price: '₹180', desc: 'Dal, 3 sabji, puri, rice, raita, dessert & papad', tag: 'Most Loved' },
+      { name: 'Mini Thali', price: '₹110', desc: 'Dal, 1 sabji, roti, rice & papad — light & quick', tag: null },
+    ]
+  },
+  {
+    id: 'main',
+    name: 'Main Course',
+    subtitle: 'Best with roti or rice',
+    items: [
+      { name: 'Dal Tadka', price: '₹100', desc: 'Yellow lentils tempered with cumin & ghee', tag: null },
+      { name: 'Dal Makhani', price: '₹120', desc: 'Slow-cooked black lentils in a rich, creamy base', tag: 'Popular' },
+      { name: 'Paneer Butter Masala', price: '₹160', desc: 'Cottage cheese in velvety tomato-cashew gravy', tag: 'Popular' },
+      { name: 'Shahi Paneer', price: '₹170', desc: 'Rich mughlai-style paneer in a nutty, aromatic sauce', tag: null },
+      { name: 'Matar Paneer', price: '₹140', desc: 'Green peas & paneer in a spiced onion-tomato gravy', tag: null },
+      { name: 'Mix Veg', price: '₹120', desc: 'Seasonal vegetables in a mildly spiced curry', tag: null },
+      { name: 'Rajma', price: '₹110', desc: 'Hearty kidney bean curry cooked with whole spices', tag: null },
+      { name: 'Kadai Paneer', price: '₹155', desc: 'Paneer with capsicum in a bold, smoky kadai masala', tag: null },
+    ]
+  },
+  {
+    id: 'breads',
+    name: 'Breads',
+    subtitle: 'Fresh from the tandoor',
+    items: [
+      { name: 'Roti', price: '₹12', desc: 'Whole wheat, soft', tag: null },
+      { name: 'Butter Roti', price: '₹18', desc: 'Whole wheat with a generous butter finish', tag: null },
+      { name: 'Paratha', price: '₹35', desc: 'Plain layered flatbread', tag: null },
+      { name: 'Aloo Paratha', price: '₹55', desc: 'Stuffed with spiced mashed potato, served with curd', tag: 'Popular' },
+      { name: 'Naan', price: '₹40', desc: 'Leavened tandoor bread, soft & pillowy', tag: null },
+      { name: 'Butter Naan', price: '₹50', desc: 'Naan topped with butter — pairs perfectly with paneer', tag: null },
+      { name: 'Garlic Naan', price: '₹55', desc: 'Naan finished with garlic & coriander', tag: null },
+      { name: 'Puri (4 pcs)', price: '₹40', desc: 'Deep-fried whole wheat puffs', tag: null },
+    ]
+  },
+  {
+    id: 'rice',
+    name: 'Rice & Biryani',
+    subtitle: 'Comfort in every grain',
+    items: [
+      { name: 'Steamed Rice', price: '₹60', desc: 'Plain basmati rice', tag: null },
+      { name: 'Jeera Rice', price: '₹80', desc: 'Basmati tossed with cumin & ghee', tag: null },
+      { name: 'Veg Biryani', price: '₹140', desc: 'Aromatic long-grain rice layered with spiced vegetables', tag: 'Popular' },
+      { name: 'Curd Rice', price: '₹90', desc: 'Cooling yogurt rice tempered with mustard & curry leaves', tag: null },
+    ]
+  },
+  {
+    id: 'south',
+    name: 'South Indian',
+    subtitle: 'Crispy, light & authentic',
+    items: [
+      { name: 'Masala Dosa', price: '₹90', desc: 'Thin crispy crepe with spiced potato filling, sambar & chutneys', tag: 'Popular' },
+      { name: 'Plain Dosa', price: '₹70', desc: 'Golden crispy dosa, simple & classic', tag: null },
+      { name: 'Rava Dosa', price: '₹95', desc: 'Semolina dosa — extra crispy & lacy', tag: null },
+      { name: 'Idli (3 pcs)', price: '₹70', desc: 'Soft steamed rice cakes with sambar & coconut chutney', tag: null },
+      { name: 'Vada (2 pcs)', price: '₹65', desc: 'Crispy lentil doughnuts, served with sambar', tag: null },
+      { name: 'Uttapam', price: '₹90', desc: 'Thick savory pancake topped with onion, tomato & green chilli', tag: null },
+    ]
+  },
+  {
+    id: 'chinese',
+    name: 'Indo-Chinese',
+    subtitle: 'Our fusion favourites',
+    items: [
+      { name: 'Veg Manchurian', price: '₹110', desc: 'Crispy veg balls in a tangy, garlicky sauce — dry or gravy', tag: null },
+      { name: 'Veg Fried Rice', price: '₹110', desc: 'Wok-tossed rice with mixed vegetables & soy', tag: 'Popular' },
+      { name: 'Veg Noodles', price: '₹100', desc: 'Hakka-style noodles stir-fried with crunchy vegetables', tag: null },
+      { name: 'Chilli Paneer', price: '₹140', desc: 'Crispy paneer tossed with bell peppers in a spicy sauce', tag: 'Popular' },
+      { name: 'Chinese Platter', price: '₹130', desc: 'Noodles + fried rice + manchurian — the full combo', tag: null },
+    ]
+  },
+  {
+    id: 'drinks',
+    name: 'Drinks',
+    subtitle: 'Cool & refreshing',
+    items: [
+      { name: 'Masala Chaas', price: '₹40', desc: 'Spiced buttermilk with roasted cumin', tag: 'Popular' },
+      { name: 'Sweet Lassi', price: '₹55', desc: 'Thick yogurt drink, lightly sweetened', tag: null },
+      { name: 'Mango Lassi', price: '₹70', desc: 'Yogurt blended with fresh Alphonso mango pulp', tag: null },
+      { name: 'Fresh Lime Soda', price: '₹50', desc: 'Sweet, salty or mixed — you choose', tag: null },
+      { name: 'Cold Coffee', price: '₹75', desc: 'Blended iced coffee with milk & sugar', tag: null },
+      { name: 'Jaljeera', price: '₹35', desc: 'Tangy cumin-mint cooler — traditional & refreshing', tag: null },
+    ]
+  },
+  {
+    id: 'desserts',
+    name: 'Desserts',
+    subtitle: 'End on a sweet note',
+    items: [
+      { name: 'Gulab Jamun (2 pcs)', price: '₹60', desc: 'Soft milk-solid dumplings in rose-scented sugar syrup', tag: 'Popular' },
+      { name: 'Rasgulla (2 pcs)', price: '₹55', desc: 'Spongy chenna balls soaked in light sugar syrup', tag: null },
+      { name: 'Kheer', price: '₹70', desc: 'Slow-cooked rice pudding with cardamom & dry fruits', tag: null },
+      { name: 'Gajar Halwa', price: '₹80', desc: 'Carrot slow-cooked in ghee, milk & sugar — served warm', tag: null },
+      { name: 'Ice Cream', price: '₹60', desc: 'Vanilla / Chocolate / Mango — ask your waiter', tag: null },
+    ]
+  }
+];
+
+// ── RENDER TABS ──
+const tabsEl = document.getElementById('tabs');
+menu.forEach((cat, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'tab' + (i === 0 ? ' active' : '');
+  btn.textContent = cat.name;
+  btn.dataset.id = cat.id;
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    const target = document.getElementById('cat-' + cat.id);
+    if (target) {
+      const headerH = document.querySelector('.menu-header').offsetHeight;
+      const top = target.getBoundingClientRect().top + window.scrollY - headerH - 10;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+  tabsEl.appendChild(btn);
+});
+
+// ── RENDER MENU ──
+const contentEl = document.getElementById('menuContent');
+menu.forEach(cat => {
+  const sec = document.createElement('section');
+  sec.className = 'category-section';
+  sec.id = 'cat-' + cat.id;
+
+  let html = `<div class="cat-title">${cat.name}</div>`;
+  if (cat.subtitle) html += `<div class="cat-subtitle">${cat.subtitle}</div>`;
+
+  cat.items.forEach(item => {
+    html += `
+      <div class="dish">
+        <div class="dish-left">
+          ${item.tag ? `<div class="dish-tag-pill">${item.tag}</div>` : ''}
+          <div class="dish-name-row">
+            <div class="veg-dot"></div>
+            <div class="dish-name">${item.name}</div>
+          </div>
+          ${item.desc ? `<div class="dish-desc">${item.desc}</div>` : ''}
+        </div>
+        <div class="dish-price">${item.price}</div>
+      </div>
+    `;
+  });
+
+  sec.innerHTML = html;
+  contentEl.appendChild(sec);
+});
+
+// ── ACTIVE TAB ON SCROLL ──
+const sections = document.querySelectorAll('.category-section');
+const tabs = document.querySelectorAll('.tab');
+const headerH = () => document.querySelector('.menu-header').offsetHeight;
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(sec => {
+    if (window.scrollY >= sec.offsetTop - headerH() - 20) {
+      current = sec.id.replace('cat-', '');
+    }
+  });
+  tabs.forEach(t => {
+    t.classList.toggle('active', t.dataset.id === current);
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
